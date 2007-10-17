@@ -6,7 +6,6 @@ session_start();
 * The general preferences and database details.
 */
 require_once "admin/dbprefs.php";
-include("login.php");
 
 /**
  * Delete cookies - the time must be in the past,
@@ -25,22 +24,15 @@ if(isset($_COOKIE['cookname'])){
 
 <?
 
-if(!$logged_in){
-   echo "<h1>Error!</h1>\n";
-   echo "You are not currently logged in, logout failed. Back to <a href=\"talk.php\">login</a>";
-}
-else{
-   /* Kill session variables */
-   unset($_SESSION['username']);
-   unset($_SESSION['password']);
-   unset($_SESSION['cookname']);
-   $_SESSION = array(); // reset session array
-   session_destroy();   // destroy session.
+/* Kill session variables */
+unset($_SESSION['username']);
+unset($_SESSION['password']);
+unset($_SESSION['cookname']);
+$_SESSION = array(); // reset session array
+session_destroy();   // destroy session.
 
-   echo "<h1>Logged Out</h1>\n";
-   echo "You have successfully <b>logged out</b>. Back to <a href=\"talk.php\">login</a>";
-}
-
+echo "<h1>Logged Out</h1>\n";
+echo "You have successfully <b>logged out</b>. Back to <a href=\"talk.php\">login</a>";
 ?>
 
 </body>
