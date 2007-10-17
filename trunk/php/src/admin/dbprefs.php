@@ -89,7 +89,7 @@ define('CACHE_CONTROL', 0);
 define("PROGRAMEVERSION","v0.09");
 
 // This is where all the AIML and startup.xml resides
-$rootdir="../../aiml_test/";
+$rootdir="../../aaa/";
 
 $DB_HOST="localhost";
 $DB_UNAME="root";
@@ -98,7 +98,7 @@ $DB_DB="programe";
 
 $errors="";
 
-mysql_connect($DB_HOST,$DB_UNAME,$DB_PWORD) or $errors = $errors . "Could not connect to database.\n";
+$conn = mysql_connect($DB_HOST,$DB_UNAME,$DB_PWORD) or $errors = $errors . "Could not connect to database.\n";
 @mysql_select_db($DB_DB) or $errors = $errors . "Unable to select database\n";
 
 ?>
