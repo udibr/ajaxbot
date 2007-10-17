@@ -128,7 +128,8 @@ if(isset($_POST['subjoin'])){
          $_SESSION['reguname'] = $_POST['user'];
          $_SESSION['regresult'] = addNewUser($_POST['user'], $md5pass);
          $_SESSION['registered'] = true;
-         echo "<meta http-equiv=\"Refresh\" content=\"0;url=$HTTP_SERVER_VARS[PHP_SELF]\">";
+         $path="./".basename($HTTP_SERVER_VARS[PHP_SELF]); // protect against cases in which the server root is not the same as the file-system root
+         echo "<meta http-equiv=\"Refresh\" content=\"0;url=$path\">";
          return;
       }
    }
@@ -145,7 +146,7 @@ if(isset($_POST['subjoin'])){
 <body>
 <h1>Register</h1>
 <? echo $message; ?>
-<form action="<? echo $HTTP_SERVER_VARS['PHP_SELF']; ?>" method="post">
+<form action="" method="post">
 <table align="left" border="0" cellspacing="0" cellpadding="3">
 <tr><td>Username:</td><td><input type="text" name="user" maxlength="30"></td></tr>
 <tr><td>Password:</td><td><input type="password" name="pass" maxlength="30"></td></tr>
