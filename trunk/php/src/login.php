@@ -188,7 +188,8 @@ if(isset($_POST['sublogin'])){
    }
 
    /* Quick self-redirect to avoid resending data on refresh */
-   echo "<meta http-equiv=\"Refresh\" content=\"0;url=$HTTP_SERVER_VARS[PHP_SELF]\">";
+   $path="./".basename($HTTP_SERVER_VARS[PHP_SELF]); // protect against cases in which the server root is not the same as the file-system root
+   echo "<meta http-equiv=\"Refresh\" content=\"0;url=$path\">";
    return;
 }
 
