@@ -13,9 +13,8 @@ include("login.php");
  * so just negate what you added when creating the
  * cookie.
  */
-if(isset($_COOKIE['cookname']) && isset($_COOKIE['cookpass'])){
+if(isset($_COOKIE['cookname'])){
    setcookie("cookname", "", time()-60*60*24*100, "/");
-   setcookie("cookpass", "", time()-60*60*24*100, "/");
 }
 
 ?>
@@ -34,6 +33,7 @@ else{
    /* Kill session variables */
    unset($_SESSION['username']);
    unset($_SESSION['password']);
+   unset($_SESSION['cookname']);
    $_SESSION = array(); // reset session array
    session_destroy();   // destroy session.
 
