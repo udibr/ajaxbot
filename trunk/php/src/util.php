@@ -317,24 +317,19 @@ function botget($name){
 *                           value of a predicate
 */
 function bget($name){
-
 	global $uid;
-
 	$name=addslashes($name);
 
 	$query="select value from dstore where name='$name' and uid='$uid' order by id desc limit 1";
 
 	$selectcode = mysql_query($query);
-	if ($selectcode){
-		if(!mysql_numrows($selectcode)){
-			return DEFAULTPREDICATEVALUE;
-		}
-		else{
-			while ($q = mysql_fetch_array($selectcode)){
-				return $q[0];
-			}
+	if ($selectcode && mysql_numrows($selectcode)){
+		while ($q = mysql_fetch_array($selectcode)){
+			return $q[0];
 		}
 	}
+	if(!strcmp($name,"name"))
+		return $_SESSION['username'];
 	return DEFAULTPREDICATEVALUE;
 
 }

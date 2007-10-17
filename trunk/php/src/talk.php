@@ -32,101 +32,60 @@
  * @package Interpreter
  * @subpackage Responder
  */
-
+$debug=0;
 
 /**
 * Include the guts of the program.
 */
+// Start the session or get the existing session.
+session_start();
 include "respond.php";
-
-if (isset($HTTP_POST_VARS['input'])){
-
-	$numselects=0;
-
-	// Start the session or get the existing session.
-	session_start();
-	$myuniqueid=session_id();
-
-	// Here is where we get the reply.
-	$botresponse=replybotname($HTTP_POST_VARS['input'],$myuniqueid,$HTTP_POST_VARS['botname']);
-
-	// Print the results.
-	print "<B>RESPONSE: " . $botresponse->response . "<BR></b>";
-	print "<BR><BR>execution time: " . $botresponse->timer;
-	print "<BR>numselects= $numselects";
-
-	//print_r($botresponse->inputs);
-	//print_r($botresponse->patternsmatched);
-
-	// Include a form so they can say more. Note the hidden part for people that do not have trans sid on but want non-cookie users to be able to use the system.
-
-	?>
-
-	<html>
-	<head>
-	<title>Sample talk to Program E page</title>
-	</head>
-	<body>
-	<form name="form1" method="post" action="talk.php">
-	<input type="hidden" name="<?=session_name()?>" value="<?=$uid?>">
-	<input type="hidden" name="botname" value="<?=$HTTP_POST_VARS['botname']?>">
-	  Input: <input type="text" name="input" size="55">
-
-	  <input type="submit" name="Submit" value="Submit">
-	</form>
-	</body>
-	</html>
-
-<?
-}
-else {
-
-	$availbots=array();
-
-	// Get all the names of our bots.
-	$query="select botname from bots";
-
-    $selectcode = mysql_query($query);
-
-    if ($selectcode){
-        if(!mysql_numrows($selectcode)){
-        }
-        else{
-            while ($q = mysql_fetch_array($selectcode)){
-                $availbots[]=$q[0];
-            }
-        }
-    }
-
-	?>
-
-	<html>
-	<head>
-	<title>Program E Tester</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	</head>
-
-	<body bgcolor="#FFFFFF" text="#000000">
-	<form name="form1" method="post" action="talk.php">
-
-	Talk to: <select name="botname">
-	<? 
-	foreach ($availbots as $onebot){
-		print "<option value=\"$onebot\">$onebot</option>";
-	}
-	?>
-	</select><BR>
-
-	  Input: <input type="text" name="input" size="55">
-
-	  <input type="submit" name="Submit" value="Submit">
-	</form>
-	  
-	</body>
-	</html>
-
-	<?
-
-}
-
+include "login.php";
 ?>
+<html>
+<head>
+<title>Sample talk to Program E page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body onload="document.form1.input.focus()">
+<?
+displayLogin();
+if($logged_in){
+	if (isset($HTTP_POST_VARS['input'])){
+		$numselects=0;
+
+		// Here is where we get the reply.
+		$botresponse=replybotname($HTTP_POST_VARS['input'],$_SESSION['cookname']);
+
+		// Print the results.
+		print "<BR><B>RESPONSE: " . $botresponse->response . "<BR></b>";
+		//print "<BR><BR>execution time: " . $botresponse->timer;
+		//print "<BR>numselects= $numselects";
+
+		//print_r($botresponse->inputs);
+		if ($debug>0) {
+			foreach ($botresponse->inputs as $p){
+				print "<BR>";
+				print_r($p);
+			}
+			print "<BR>";
+			foreach ($botresponse->patternsmatched as $p){
+				print "<BR>";
+				print_r($p);
+			}
+		}
+	}	
+	// Include a form so they can say more. Note the hidden part for people that do not have trans sid on but want non-cookie users to be able to use the system.
+	?>
+	<form name="form1" method="post" action="talk.php">
+		Input: <input type="text" name="input" size="55">
+		<input type="hidden" name="<?=session_name()?>" value="<?=session_id()?>">
+		<input type="submit" name="Submit" value="Submit">
+	</form>
+	<?
+}
+?>
+</body>
+</html>
+
+
