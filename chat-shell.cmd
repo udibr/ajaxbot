@@ -1,1 +1,2 @@
-@java -cp "%~dp0\src;%~dp0\bin;C:/google/gwt-windows-1.4.60/gwt-user.jar;C:/google/gwt-windows-1.4.60/gwt-dev-windows.jar" com.google.gwt.dev.GWTShell -out "%~dp0\www" %* com.br.chat/chat.html
+@set GWTDIR=D:\Software\Java\gwt-windows-1.4.60
+@java -cp "%~dp0src;%~dp0bin;%GWTDIR%\gwt-user.jar;%GWTDIR%\gwt-dev-windows.jar" com.google.gwt.dev.GWTShell -out "%~dp0www" %* com.br.chat/chat.html
