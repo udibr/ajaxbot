@@ -170,26 +170,22 @@ CREATE TABLE thatstack (
 
 # --------------------------------------------------------
 
+
 #
+
 # Table structure for table `users`
+
 #
+
 
 CREATE TABLE users (
+
     username varchar(30),
-    password varchar(32));
 
-
-
-# --------------------------------------------------------
-
-#
-# Table structure for table `users`
-#
-
-CREATE TABLE users (
-    username varchar(30),
     password varchar(32),
+
     cookie varchar(32)
 );
+
 
 
