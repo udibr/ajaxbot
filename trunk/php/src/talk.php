@@ -55,7 +55,7 @@ if($logged_in){
 		$numselects=0;
 
 		// Here is where we get the reply.
-		$botresponse=replybotname($HTTP_POST_VARS['input'],$_SESSION['cookname']);
+		$botresponse=replybotname($HTTP_POST_VARS['input'],$_SESSION['username']);
 
 		// Print the results.
 		print "<BR><B>RESPONSE: " . $botresponse->response . "<BR></b>";
