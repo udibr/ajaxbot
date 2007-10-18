@@ -1,4 +1,4 @@
-package com.br.client;
+package com.benreuven.chat.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.TabPanel;
