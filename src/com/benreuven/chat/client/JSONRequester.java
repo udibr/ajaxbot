@@ -11,7 +11,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.br.client;
+package com.benreuven.chat.client;
 
 
 import com.google.gwt.json.client.JSONArray;
@@ -112,7 +112,6 @@ public class JSONRequester {
 					if (session_name != null)
 							  data = data + "&" + session_name + "=" + session_uid;
 				    if (!HTTPRequest.asyncPost(DEFAULT_SEARCH_URL, data, new JSONResponseTextHandler())) {
-							  System.out.println(message);
 							  Window.alert(DEFAULT_SEARCH_URL + " failed to post");
 							  b1.setText("Search");
 				    }
