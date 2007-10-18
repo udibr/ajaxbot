@@ -4,6 +4,6 @@
 	<inherits name='com.google.gwt.user.User'/>
 	<inherits name='com.google.gwt.json.JSON'/>
 	<!-- Specify the app entry point class.                   -->
-	<entry-point class='com.benreuven.chat.client.chat'/>
+	<entry-point class='com.benreuven.chat.client.Chat'/>
   
 </module>
