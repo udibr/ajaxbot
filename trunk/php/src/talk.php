@@ -57,13 +57,9 @@ if($logged_in){
 		// Here is where we get the reply.
 		$botresponse=replybotname($HTTP_POST_VARS['input'],$_SESSION['username']);
 
-		// Print the results.
-		print "<BR><B>RESPONSE: " . $botresponse->response . "<BR></b>";
-		//print "<BR><BR>execution time: " . $botresponse->timer;
-		//print "<BR>numselects= $numselects";
-
-		//print_r($botresponse->inputs);
-		if ($debug>0) {
+		if ($_SESSION['username']=='debug') {
+			print_r($botresponse->inputs);
+			print "<BR>";			
 			foreach ($botresponse->inputs as $p){
 				print "<BR>";
 				print_r($p);
@@ -73,7 +69,11 @@ if($logged_in){
 				print "<BR>";
 				print_r($p);
 			}
+			print "<BR><BR>execution time: " . $botresponse->timer;
+			print "<BR>numselects= $numselects";
 		}
+		// Print the results.
+		print "<BR><B>RESPONSE: " . $botresponse->response . "<BR></b>";
 	}	
 	// Include a form so they can say more. Note the hidden part for people that do not have trans sid on but want non-cookie users to be able to use the system.
 	?>

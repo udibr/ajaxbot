@@ -47,7 +47,7 @@
 */
 function debugger($msg,$val)
 {
-	#print "$msg\n";
+	#print "<BR>$msg\n";
 }
 
 /**
@@ -169,7 +169,6 @@ function graphwalker($input,$parent,$timesthrough,$onwild,$parton,&$inputstarval
 		$word=substr($input,0,strpos($input," "));
 		$remains=substr($input,strpos($input," "));
 	}
-
 	debugger("Word|$word|",1);
 	debugger("Remains|$remains|",1);
 
@@ -210,6 +209,7 @@ function graphwalker($input,$parent,$timesthrough,$onwild,$parton,&$inputstarval
 			// Also it is the last word in this context so add everything up to the next context to the star.
 			$ffremains=$remains;
 			$newword=fastforward($word,$ffremains);
+
 			addtostar($parton,$newword,$inputstarvals,$thatstarvals,$topicstarvals,1);
 
 			// Now we take off the first word and everything up to the next context because it matched and call the graphwalker
@@ -314,10 +314,8 @@ function graphwalker($input,$parent,$timesthrough,$onwild,$parton,&$inputstarval
 
 		// If it is the last word in its context
 		if ($whichresult[5]==1) {
-
 			$ffremains=$remains;
-			$newword=fastforward($word,$ffremains);			
-
+			$newword=fastforward($word,$ffremains);	
 			addtostar($parton,$newword,$inputstarvals,$thatstarvals,$topicstarvals,1);
 
 			// Call graphwalker with the first word removed from input
@@ -495,7 +493,6 @@ function findtemplate($id){
 * @return void                   info is returned via call-by-reference variables.
 */
 function addtostar($parton,$word,&$inputstarvals,&$thatstarvals,&$topicstarvals,$action){
-
 	if (($word!="<nothing>")&&($word!="<that>")&&($word!="<topic>")){
 
 		if ($parton=="input"){
@@ -508,7 +505,6 @@ function addtostar($parton,$word,&$inputstarvals,&$thatstarvals,&$topicstarvals,
 			elseif ($action==2){
 				$inputstarvals[sizeof($inputstarvals)-1].= " " . $word;
 			}
-		
 		}
 		elseif ($parton=="that"){
 
@@ -532,6 +528,7 @@ function addtostar($parton,$word,&$inputstarvals,&$thatstarvals,&$topicstarvals,
 		}
 
 	}
+	
 }
 
 
@@ -549,7 +546,7 @@ function addtostar($parton,$word,&$inputstarvals,&$thatstarvals,&$topicstarvals,
 *
 * @return string                          words to be saved by {@link addtostar()}
 */
-function fastforward($word,$ffremains){
+function fastforward($word,&$ffremains){
 
 	$starwords=$word;
 
@@ -573,7 +570,6 @@ function fastforward($word,$ffremains){
 		}
 
 	}
-
 	for ($y=$x;$y<sizeof($ffar);$y++){
 		$newremains =  $newremains . " " . $ffar[$y];
 	}
