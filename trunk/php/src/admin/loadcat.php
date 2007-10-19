@@ -24,7 +24,6 @@
 * The general preferences and database details.
 */
 require_once "dbprefs.php";
-include "../login.php";
 
 /**
 * Contains the actual functions used in this file to load the AIML files into MySQL.
@@ -88,11 +87,6 @@ if(isset($_POST['subjoin'])){
 <html>
 <title>Add AIML</title>
 <body>
-<?
-displayLogin();
-if($logged_in) die('You are not logged in');
-if ($_SESSION['username']!="admin") die("you are not admin");
-?>
 <h1>Add AIML text</h1>
 <? echo $message; ?>
 <form action="" method="post">
