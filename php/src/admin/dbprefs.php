@@ -45,6 +45,12 @@ if (get_magic_quotes_gpc()) {
 		$HTTP_POST_VARS[$k] = stripslashes($v);
 	foreach($HTTP_COOKIE_VARS as $k=>$v)
 		$HTTP_COOKIE_VARS[$k] = stripslashes($v);
+	foreach($_GET as $k=>$v)
+		$_GET[$k] = stripslashes($v);
+	foreach($_POST as $k=>$v)
+		$_POST[$k] = stripslashes($v);
+	foreach($_COOKIE as $k=>$v)
+		$_COOKIE[$k] = stripslashes($v);
 }
 
 /** 
