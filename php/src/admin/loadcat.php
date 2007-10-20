@@ -90,7 +90,7 @@ if(isset($_POST['subjoin'])){
 <h1>Add AIML text</h1>
 <? echo $message; ?>
 <form action="" method="post">
-<textarea rows="40" cols="40" name="aimlstring">
+<textarea rows="40" cols="120" name="aimlstring">
 </textarea>
 <tr><td colspan="2" align="right"><input type="submit" name="subjoin" value="Enter text"></td></tr>
 </table>
