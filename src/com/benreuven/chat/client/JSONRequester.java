@@ -42,7 +42,7 @@ public class JSONRequester {
 /*
  *    The URL where we go to do the search. 
  */
-	  private String DEFAULT_SEARCH_URL = "http://www.benreuven.com/udi/AIML/E/src/ajaxbot.php";
+	  private String DEFAULT_SEARCH_URL = "/temp/ajaxbot/php/src/ajaxbot.php";
 	  
 /*
  *   Some widgets that we go to need.
@@ -111,6 +111,8 @@ public class JSONRequester {
 				    String data = "input="+txtBox.getText();
 					if (session_name != null)
 							  data = data + "&" + session_name + "=" + session_uid;
+					Window.alert(DEFAULT_SEARCH_URL);
+
 				    if (!HTTPRequest.asyncPost(DEFAULT_SEARCH_URL, data, new JSONResponseTextHandler())) {
 							  Window.alert(DEFAULT_SEARCH_URL + " failed to post");
 							  b1.setText("Search");
