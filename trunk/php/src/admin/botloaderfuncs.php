@@ -1111,7 +1111,8 @@ function learnstring($xmlstring)
     xml_set_character_data_handler ($xml_parser, "handleme");
 
     if (!xml_parse($xml_parser, $xmlstring)) {
-        die(sprintf("XML error: %s at line %d",
+        die(sprintf("%s\nXML error: %s at line %d",
+					$xmlstring,
                     xml_error_string(xml_get_error_code($xml_parser)),
                     xml_get_current_line_number($xml_parser)));
     }

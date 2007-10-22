@@ -67,7 +67,7 @@ if(isset($_POST['subjoin'])){
 		$bot="TestBot";
 
 		if (!botexists($bot)) {
-			$message = "No such bot".$bot;
+			$message = "No such bot ".$bot;
 		} else {
 			$botid = getbotid($bot);
 			loadaimlcategory($aimlstring,$botid);
