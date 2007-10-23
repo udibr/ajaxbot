@@ -35,6 +35,8 @@ ss_timing_start("all");
 $fp = "";
 
 $templatesinserted=0;
+$templatesoverwritten=0;
+$overwritetemplate=0;
 
 $depth = array();
 $whaton = "";
@@ -59,6 +61,7 @@ $person2array = array();
  */
 $message="";
 if(isset($_POST['subjoin'])){
+	$overwritetemplate=isset($_POST['overridetemplate']);
    /* Make sure all fields were entered */
 	if(!$_POST['aimlstring']){
 		$message='You didn\'t fill in a required field.';
@@ -71,9 +74,9 @@ if(isset($_POST['subjoin'])){
 		} else {
 			$botid = getbotid($bot);
 			loadaimlcategory($aimlstring,$botid);
-			$path="./".basename($HTTP_SERVER_VARS[PHP_SELF]); // protect against cases in which the server root is not the same as the file-system root
+/*			$path="./".basename($HTTP_SERVER_VARS[PHP_SELF]); // protect against cases in which the server root is not the same as the file-system root
 			echo "<meta http-equiv=\"Refresh\" content=\"0;url=$path\">";
-			return;
+			return;*/
 		}
    }
 }
@@ -88,11 +91,20 @@ if(isset($_POST['subjoin'])){
 <title>Add AIML</title>
 <body>
 <h1>Add AIML text</h1>
-<? echo $message; ?>
+<?
+print "<font size='5' color='RED'>$message<br>\n";
+/* if ($templatesinserted) { */
+	print "<font size='3' color='BLUE'>Inserted $templatesinserted categories into database,";
+	print "of which $templatesoverwritten overwritten existing categories.</font><br>\n";
+/* } */
+?>
 <form action="" method="post">
-<textarea rows="40" cols="120" name="aimlstring">
-</textarea>
-<tr><td colspan="2" align="right"><input type="submit" name="subjoin" value="Enter text"></td></tr>
+<table align="left" border="0" cellspacing="0" cellpadding="3">
+<tr><td><textarea rows="40" cols="120" name="aimlstring">
+</textarea></td></tr>
+<tr><td colspan="2" align="left"><input type="checkbox" name="overridetemplate">
+<font size="2">Overwrite existing template with the same pattern</font></td></tr>
+<tr><td colspan="2" align="right"><input type="submit" name="subjoin" value="Enter text"/></td></tr>
 </table>
 </form>
 </body>

@@ -53,6 +53,8 @@ print "<font size='3' color='black'>This script is loading your AIML files one a
 $fp="";
 
 $templatesinserted=0;
+$templatesoverwritten=0;
+$overwritetemplate=0;
 
 $depth = array();
 $whaton="";
