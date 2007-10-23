@@ -445,10 +445,12 @@ function insertwordpattern($qadd)
 function insertmytemplate($idused,$template)
 {
 	
-	global $selectbot,$templatesinserted, $pattern, $topic, $that;
+	global $overwritetemplate,$selectbot,$templatesinserted, $templatesoverwritten, $pattern, $topic, $that;
     
-    if (!templateexists($idused)){
+	$texists=templateexists($idused);
+    if ($overwritetemplate || !$texists){
         $templatesinserted++;
+        if ($texists) $templatesoverwritten++;
 
         $template=addslashes($template);
         $query="insert into templates (bot,id,template,pattern,that,topic) values ($selectbot, $idused,'$template','$pattern','$that','$topic')";
@@ -829,7 +831,7 @@ function endElement($parser, $name)
 {
 
 	global $whaton,$pattern,$template,$recursive,$topic,$that;
-    
+	
     if (strtoupper($name)=="TOPIC"){
         $topic="";
     }
@@ -855,7 +857,7 @@ function endElement($parser, $name)
 
 //echo $mybigsentence;
      
-     $idused=insertmysentence($mybigsentence);
+		$idused=insertmysentence($mybigsentence);
             
         insertmytemplate($idused,$template);
 
@@ -1087,7 +1089,6 @@ function learnallfiles($curbot)
     closedir($dir);
 }
 
-
 /**
 * Learn the AIML string.
 *
@@ -1119,7 +1120,67 @@ function learnstring($xmlstring)
 
     xml_parser_free($xml_parser);
 }
+/*
+class xmllearn  {
+    var $parser;
+    var $tinserted;
 
+    function xmllearn() 
+    {
+    	set_time_limit(600);
+    	$this->parser = xml_parser_create();
+    	xml_parser_set_option($this->parser,XML_OPTION_CASE_FOLDING,0);
+        xml_set_object($this->parser, $this);
+        xml_set_element_handler($this->parser, "tag_open", "tag_close");
+        xml_set_character_data_handler($this->parser, "cdata");
+        $tinserted=0;
+    }
+
+    function parse($xmlstring) 
+    {
+    	global $templatesinserted;
+    	$this->tinserted = $templatesinserted;
+    	
+    	$xml_parser = $this->parser;
+    	if (!xml_parse($xml_parser, $xmlstring)) {
+        	die(sprintf("%s\nXML error: %s at line %d",
+					$xmlstring,
+                    xml_error_string(xml_get_error_code($xml_parser)),
+                    xml_get_current_line_number($xml_parser)));
+    	}
+    	$templatesinserted = $this->tinserted;  	
+   	}
+
+    function tag_open($parser, $tag, $attributes) 
+    {
+    	startElement($parser,$tag,$attributes);
+    }
+
+    function cdata($parser, $cdata) 
+    {
+    	handleme($parser,$cdata);
+    }
+
+    function tag_close($parser, $tag) 
+    {
+    	global $templatesinserted;
+    	$templatesinserted = $this->tinserted;
+    	endElement($parser, $tag);
+    	$this->tinserted = $templatesinserted;
+    	
+    }
+
+} // end of class xmllearn
+
+function learnstring($xmlstring)
+{
+	
+	// <category><pattern>Q</pattern><template>Q</template></category>
+	global $templatesinserted;
+	$xml_parser = new xmllearn();
+	$xml_parser->parse($xmlstring);
+}
+*/
 
 /**
 * Learn an AIML file.
@@ -1167,6 +1228,7 @@ function learn($file)
     fclose($fp);
     xml_parser_free($xml_parser);
 }
+
 
 /**
 * Start a timer
@@ -1392,7 +1454,7 @@ function cleanforreplace($input)
 {
     $input = str_replace("\\", "\\\\", $input);
     $input = str_replace("\"", "\\\"", $input);
-    $input = str_replace("'", "\'", $input);
+    $input = str_replace("'", "\\'", $input);
     return trim($input);
 }
 
@@ -1411,11 +1473,11 @@ function cleanforsearch($input)
 {
     $input = str_replace("\\", "\\\\\\\\", $input);
     $input = str_replace("\"", "\\\"", $input);
-    $input = str_replace("'", "\'", $input);
-    $input = str_replace("/", "\/", $input);
-    $input = str_replace("(", "\(", $input);
-    $input = str_replace(")", "\)", $input);
-    $input = str_replace(".", "\.", $input);
+    $input = str_replace("'", "\\'", $input);
+    $input = str_replace("/", "\\/", $input);
+    $input = str_replace("(", "\\(", $input);
+    $input = str_replace(")", "\\)", $input);
+    $input = str_replace(".", "\\.", $input);
     return $input;
 }
 

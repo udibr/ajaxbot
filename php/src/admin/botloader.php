@@ -49,6 +49,8 @@ ss_timing_start("all");
 $fp = "";
 
 $templatesinserted=0;
+$templatesoverwritten=0;
+$overwritetemplate=0;
 
 $depth = array();
 $whaton = "";

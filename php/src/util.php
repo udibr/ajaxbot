@@ -594,7 +594,7 @@ function normalsentences($input){
 	$newsentences=array();
 
 	// Now split based on .'s
-	$cfulls=split("\.",$cfull);
+	$cfulls=split("\\.",$cfull);
 
 	for ($x=0;$x<sizeof($cfulls);$x++){
 		if (trim($cfulls[$x])==""){
