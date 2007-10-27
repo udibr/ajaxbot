@@ -107,4 +107,6 @@ $errors="";
 $conn = mysql_connect($DB_HOST,$DB_UNAME,$DB_PWORD) or $errors = $errors . "Could not connect to database.\n";
 @mysql_select_db($DB_DB) or $errors = $errors . "Unable to select database\n";
 
+if ($error) die($error);
+
 ?>
