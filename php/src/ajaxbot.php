@@ -28,7 +28,7 @@ $i = 0;
 //    $value{"item"}{$i}{"session_uid"}= $uid;
     $value{"response"}= $botresponse->response;
     $value{"session_name"}= session_name();
-    $value{"session_uid"}= $uid;
+    $value{"session_uid"}= $myuniqueid;
 
 //}
 // We use JSON.php for convert the data to JSON format and send it to the browser  
